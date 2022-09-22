@@ -22,30 +22,35 @@
 
  * Répéter l'exécution plusieurs fois et déterminer quels sont les caractères lus par le processus père et le processus fils.
  
- PID : 10875 :  fait à 1
-DPID : 10876 : 5:20. Je d
+ * 2- Dans le père, positionner le pointeur de lecture sur le 30ème caractère par appel de lseek() 
+ * avant le fork(). Quelle est la position des caractères lus par le fils ensuite.
+ * Sortie : 
+   PID : 10875 :  fait à 1
+   DPID : 10876 : 5:20. Je d
 
-Le fils lit à partir du 30+10 caractère
+   Le fils lit à partir du 30+10 caractère
 
-
-fork avant l'ouverture du fichier :
-
-PID : 11044 :  fait à 1
-DPID : 11045 :  fait à 1
-
-les deux processus applique le lseek
- */
+* 3- Modifier le programme pour que le fork() ait lieu avant l'ouverture du fichier. 
+* Comparer les résultats.
+* Sortie : 
+   PID : 11044 :  fait à 1
+   DPID : 11045 :  fait à 1
+   
+* Les deux processus appliquent le lseek.
+*
+*/
 
 
  int main(int argc, char * argv[])
  {
-    fork();
 
-    int fdr = open("./test.data", O_RDONLY);
+   fork();
+
+   int fdr = open("./test.data", O_RDONLY);
 
    if(fdr != -1)
    {
-   	lseek(fdr, 30, SEEK_CUR);
+      lseek(fdr, 30, SEEK_CUR);
       //fork();
 
       // Affichage PID
@@ -64,8 +69,8 @@ les deux processus applique le lseek
       write(1, "\n", '\n');
    }
    else{
-   	return(1);
-   	}
+      return(1);
+   }
    
    return(0);
 }
