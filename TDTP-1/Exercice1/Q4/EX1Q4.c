@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 
 /*
  * 4- Ecrire un programme qui se comporte comme la commande cat -n.
@@ -15,15 +16,13 @@ int lNb = 0;
 
 void IncrementLine()
 {
-    char lineNb[6];
+    char lineNb[8];
 
     lNb++;
 
-    sprintf(lineNb,"%d", lNb);
-    sprintf(lineNb,"%c", '\t');
-    sprintf(lineNb,"%c", ' ');
-
-    write(2, lineNb, strlen(lineNb));
+    sprintf(lineNb,"\t%d  ", lNb);
+    
+    write(1, lineNb, strlen(lineNb));
 }
 
 
@@ -36,12 +35,10 @@ int main(int argc, char* argv[])
     {
         for (int i = 1; i < argc; i++)
         {
-            /*** Ajout par rapport à la commande cat -n ***/
+            /*** Ajout par rapport à la commande cat -n. ***/
             // Réinitialisation pour chaque fichier du nombre de lignes.
             lNb = 0;
-
-            printf("\n\n");
-            /*** ^^^ Ajouts par rapport à la commande cat -n ^^^ ***/
+            /*** ^^^ Ajout par rapport à la commande cat -n. ^^^ ***/
 
             // Ouverture du fichier à lire.
             int df = open(argv[i], O_RDONLY);
@@ -65,8 +62,11 @@ int main(int argc, char* argv[])
                     if(buf[0] == '\n')
                     {
                         IncrementLine();
+                        memset(buf, 0, 255);
                     }
                 }
+                
+            	printf("\n");
 
                 close(df);
             }
@@ -121,3 +121,4 @@ int main(int argc, char* argv[])
 
     return(returnValue);
 }
+
