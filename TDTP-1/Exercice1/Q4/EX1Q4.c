@@ -12,14 +12,18 @@
 
 
 int lNb = 0;
-char lineNb[3];
 
 void IncrementLine()
 {
+    char lineNb[6];
+
     lNb++;
-    lineNb[0] = '\t';
-    lineNb[1] = lNb +'0';
-    lineNb[2] = ' ';
+
+    sprintf(lineNb,"%d", lNb);
+    sprintf(lineNb,"%c", '\t');
+    sprintf(lineNb,"%c", ' ');
+
+    write(2, lineNb, strlen(lineNb));
 }
 
 
@@ -45,7 +49,6 @@ int main(int argc, char* argv[])
             if(df != -1)
             {
                 IncrementLine();
-                printf("%s", lineNb);
 
                 char buf[1];
 
@@ -62,7 +65,6 @@ int main(int argc, char* argv[])
                     if(buf[0] == '\n')
                     {
                         IncrementLine();
-                        printf("%s", lineNb);
                     }
                 }
 
@@ -97,7 +99,6 @@ int main(int argc, char* argv[])
                 if(charBuf[0] == '\n')
                 {
                     IncrementLine();
-                    printf("%s", lineNb);
 
                     write(1, wordBuf, octSize);
                     printf("\n");

@@ -30,21 +30,23 @@
 
     int fdr = open("./test.data", O_RDONLY);
 
-    if(fdr != -1)
-    {
-        fork();
+   if(fdr != -1)
+   {
+      fork();
 
-        char s[12];
-        sprintf(s,"%d", getpid());
+      // Affichage PID
+      char s[12];
+      sprintf(s,"%d", getpid());
 
-        write(1, "PID : ", strlen("PID : "));
-        write(1, s, strlen(s));
-        write(1, " : ", strlen(" : "));
+      write(1, "PID : ", strlen("PID : "));
+      write(1, s, strlen(s));
+      write(1, " : ", strlen(" : "));
 
-        char buf[80];
-        int lu = read(fdr, buf, 10);
+      // Affichage 10 caractères du fichier "./test.data"
+      char buf[80];
+      int lu = read(fdr, buf, 10);
 
-        write(1, buf, lu);
-        write(1, "\n", '\n');
-    }
- }
+      write(1, buf, lu);
+      write(1, "\n", '\n');
+   }
+}
