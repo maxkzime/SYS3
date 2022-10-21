@@ -9,14 +9,13 @@
  */
 
 
-
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 
-int main()
+int main(int argc, char* argv[])
 {
     char buf[BUFSIZ +1];
 
@@ -27,7 +26,8 @@ int main()
 
         lu = read(0, buf, 256);
 
-        switch(atoi(buf)){
+        int value = atoi(buf);
+        switch(value){
             case 1: 
                 system("ls");
                 break;
@@ -41,5 +41,9 @@ int main()
                 memset(buf, 0, sizeof buf);
                 buf[0] = '4';
             }     
-    } while (atoi(buf)!=4);
+    } while (value != 4);
+    
+    printf("Fin du programme.\n");
+    
+    return 0;
 }

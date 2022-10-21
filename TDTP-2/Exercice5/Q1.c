@@ -83,6 +83,8 @@ int main(int argc , char * argv[])
                 //write(1, buf, lu);
 
             }while(atoi(buf) != 0);
+
+            printf("Processus fils: %d termine\n, dernier message: %s", getpid(), buf);
         }      
     }
     else
@@ -96,6 +98,8 @@ int main(int argc , char * argv[])
             //write(1, buf, lu);
 
         }while(atoi(buf) != 0);
+        
+        printf("Processus fils: %d termine\n, dernier message: %s", getpid(), buf);
     }   
 
     return(0);
